@@ -1,0 +1,26 @@
+{
+  "name": "@jkon1513/swap-a-lease-monitor",
+  "version": "1.0.0",
+  "description": "Monitoring service for notifying of new listings on swap a lease",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jkon1513/SwapALeaseMonitor.git"
+  },
+  "author": "jkon1513",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jkon1513/SwapALeaseMonitor/issues"
+  },
+  "homepage": "https://github.com/jkon1513/SwapALeaseMonitor#readme",
+  "devDependencies": {
+    "@types/node": "^18.0.0",
+    "typescript": "^4.7.4"
+  },
+  "dependencies": {
+    "@jkon1513/swap-a-lease-client": "^1.0.0"
+  }
+}
