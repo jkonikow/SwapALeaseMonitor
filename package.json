@@ -2,12 +2,12 @@
   "name": "@jkon1513/swap-a-lease-monitor",
   "version": "1.0.0",
   "description": "Monitoring service for notifying of new listings on swap a lease",
-  "main": "index.js",
+  "main": "dist/JobRunner.js",
   "scripts": {
     "clean": "rm -rf ./dist",
     "prebuild": "npm run clean",
     "build": "tsc",
-    "execute": "node --es-module-specifier-resolution=node dist/src/server.js",
+    "execute": "node dist/JobRunner.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -25,6 +25,8 @@
     "typescript": "^4.7.4"
   },
   "dependencies": {
-    "@jkon1513/swap-a-lease-client": "^1.0.0"
+    "@jkon1513/swap-a-lease-client": "^1.0.0",
+    "install": "^0.13.0",
+    "npm": "^8.12.2"
   }
 }
