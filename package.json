@@ -2,7 +2,11 @@
   "name": "@jkon1513/swap-a-lease-monitor",
   "version": "1.0.0",
   "description": "Monitoring service for notifying of new listings on swap a lease",
-  "main": "dist/JobRunner.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "/dist"
+  ],
   "scripts": {
     "clean": "rm -rf ./dist",
     "prebuild": "npm run clean",

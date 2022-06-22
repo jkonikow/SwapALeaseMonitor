@@ -9,26 +9,27 @@ export default class SwapALeaseMonitor {
         this.client = client;
     }
 
-    public run(): void {
-        this.monitor();
-    }
-
-    private monitor(): void {
-        console.log("running monitor...");
+    public monitor(props: SwapALeaseMonitorProps): void {
         const request: GetListingsRequest = GetListingsRequest.builder()
-                                                .withMaxDistanceFromZip('100')
-                                                .withMinMilesPerMonth('1000')
-                                                .withMaxMonthsRemaining('24')
-                                                .withMaxPricePerMonth('650')
-                                                .withZip('07675')
+                                                .withMaxDistanceFromZip(props.radiusMiles ?? '100')
+                                                .withMinMilesPerMonth(props.minMilesPerMonth ?? '1000')
+                                                .withMaxMonthsRemaining(props.maxMonthsRemaining ?? '24')
+                                                .withMaxPricePerMonth(props.maxLeasePayment ?? '650')
+                                                .withZip(props.zip)
                                                 .build();
-        console.log("before async");
         this.client.getListings(request)
         .then((response: GetListingsResponse) => {
-            console.log("before");
             console.log(response.getListings());
-            console.log("after");
         })
-        .catch(e => console.error(e));
+        .catch(e => console.error(`error: ${e}`));
     }
+}
+
+export type SwapALeaseMonitorProps = {
+    zip: string,
+    minMilesPerMonth?: string,
+    maxMonthsRemaining?: string, 
+    maxLeasePayment?: string, 
+    radiusMiles?: string,
+    preferredMake?: string, 
 }
