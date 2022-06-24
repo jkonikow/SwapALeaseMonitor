@@ -1,12 +1,15 @@
 import { SwapALeaseClient } from "@jkon1513/swap-a-lease-client";
 import { GetListingsRequest } from "@jkon1513/swap-a-lease-client";
 import { GetListingsResponse }  from "@jkon1513/swap-a-lease-client"; 
+import S3ClientFacade from "../s3/S3ClientFacade";
 
 export default class SwapALeaseMonitor {
-    private readonly client: SwapALeaseClient; 
+    private readonly salClient: SwapALeaseClient; 
+    private readonly s3Client: S3ClientFacade;
 
-    public constructor(client: SwapALeaseClient) {
-        this.client = client;
+    public constructor(salClient: SwapALeaseClient, s3Client: S3ClientFacade) {
+        this.salClient = salClient;
+        this.s3Client = s3Client;
     }
 
     public monitor(props: SwapALeaseMonitorProps): void {
@@ -17,7 +20,7 @@ export default class SwapALeaseMonitor {
                                                 .withMaxPricePerMonth(props.maxLeasePayment ?? '650')
                                                 .withZip(props.zip)
                                                 .build();
-        this.client.getListings(request)
+        this.salClient.getListings(request)
         .then((response: GetListingsResponse) => {
             console.log(response.getListings());
         })
