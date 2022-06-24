@@ -11,7 +11,7 @@
     "clean": "rm -rf ./dist",
     "prebuild": "npm run clean",
     "build": "tsc",
-    "execute": "node dist/JobRunner.js",
+    "execute": "node -r dotenv/config dist/JobRunner.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
