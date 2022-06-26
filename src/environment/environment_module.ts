@@ -7,6 +7,7 @@ const environment: Record<string, string> = {};
     if (!process.env[key]) {
         throw new Error(`Missing environment variable for ${key}`);
     }
+    environment[key] = process.env[key]!;
 });
 
 export const {

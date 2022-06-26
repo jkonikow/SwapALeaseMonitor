@@ -24,14 +24,14 @@ export default class SwapALeaseMonitor {
         //const knownListings: Listing[] = await this.listingManager.getKnownListings();
         const knownListings: Listing[] = [];
         const newListings: Listing[] = this.extractNewListings(knownListings, listingsResponse.getListings());
-        newListings.forEach(l => console.log(l));
+        this.listingManager.updateKnownListings(newListings);
     }
 
     /**
      *  Listings are fetched from SAL in sorted order with newest appearing first. 
      *  Given the above we will consider that we have new listings if 
      *      [A] we have a listing in the candidate list that is not in the known list 
-     *      [B] the new listing is at an index before all other known listings 
+     *      [B] the new listing is at an index before any known listings in the candidate list
      *
      *  TODO: handle edge case where entire page of new listings gets removed from search results. 
      * This would pull listings from subsequent pages to the front and appear as new listings 

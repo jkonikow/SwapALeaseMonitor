@@ -1,5 +1,5 @@
 import S3ClientFacade from "../s3/S3ClientFacade";
-import { LISTINGS_OBJECT } from "../environment/environment_module";
+import { LISTINGS_OBJECT, LISTINGS_S3_BUCKET_NAME } from "../environment/environment_module";
 import { Listing, VehicleInfo, LeaseInfo } from "@jkon1513/swap-a-lease-client";
 
 /**
@@ -14,9 +14,14 @@ export default class ListingManager {
     }
 
     public async getKnownListings(): Promise<Listing[]> {
-        const json: string = await this.s3Client.getObject(LISTINGS_OBJECT);
+        const json: string = await this.s3Client.getObject(LISTINGS_OBJECT, LISTINGS_S3_BUCKET_NAME);
         const listingPojos: PojoLising[] = JSON.parse(json);
         return listingPojos.map(pojo => this.convertPojoToListing(pojo));
+    }
+
+    public updateKnownListings(listings: Listing[]) {
+        const listingsJson: string = JSON.stringify(listings);
+        this.s3Client.putObject(LISTINGS_OBJECT, LISTINGS_S3_BUCKET_NAME, listingsJson);
     }
 
     private convertPojoToListing(pojo: PojoLising): Listing {
