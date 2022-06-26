@@ -13,7 +13,7 @@ export default class S3ClientFacade {
         this.s3Client = s3Client;
     }
 
-    public async getObject(key: string): Promise<void> {
+    public async getObject(key: string): Promise<string> {
         const input: GetObjectCommandInput = {
            Bucket: process.env.LISTINGS_S3_BUCKET_NAME,
            Key: key
@@ -23,7 +23,7 @@ export default class S3ClientFacade {
             console.info(`Requesting object ${key} from s3`);
             const response: GetObjectCommandOutput = await this.s3Client.send(command);
             const buffer: Buffer = await this.parseGetObjectResponse(response);
-            console.log(buffer.toString('utf-8'));
+            return buffer.toString('utf-8');
         } catch (e) {
             if (e instanceof Error) {
                 console.log(`${e.name} calling s3: ${e.message}`);
