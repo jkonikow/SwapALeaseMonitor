@@ -1,0 +1,100 @@
+<!--
+    To update the html to be used for emails please see the README in this directory. 
+
+    template variables:
+    * listingCount
+    * zip
+    * milesFromZip
+    * maxMonthsRemaining
+    * maxPayment
+    * minMilesRemaining
+    * listings (arr of objects containing the following props)
+        * title
+        * imgUrl
+        * costPerMonth
+        * milesRemaining
+        * location
+        * monthsRemaining
+
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>New attractive lease transfers</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .bold{
+            font-weight: bold;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .criteria > p {
+            text-align: center;
+            margin: 0;
+        }
+
+        .criteria > ul {
+            list-style: none;
+            text-align: center;
+            
+        }
+
+        .listings-container {
+            text-align: center;
+        }
+
+        .listing-item > h3 > a {
+            text-decoration: none;
+            color: #000;
+        }
+
+        .listing-item > ul {
+            list-style: none;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="main">
+    <div class="email-wrapper">
+        <H1>We found {{listingCount}} new listings!</H1>
+        <section class="criteria">  
+          <p class="bold">Your Current criteria for listings:</p>
+          <ul>
+            <li>Zip: {{zip}}</li>
+            <li>Radius from zip: {{milesFromZip}} miles</li>
+            <li>Max months remaining on lease: {{maxMonthsRemaining}}</li>
+            <li>Max lease payment allowed: {{maxPayment}}</li> 
+            <li>Minimum miles per month remaining on lease: {{minMilesRemaining}}</li>
+          </ul>
+        </section>
+        <section class="listings">
+            <div class="listings-container">
+                <h2>Listings:</h2>
+                <ul>
+                    {{#each listings}}
+                    <l1>
+                        <div class="listing-item">
+                            <h3><a href="{{listingUrl}}">{{title}}</a></h3>
+                            <img src={{imgUrl}}/>
+                            <ul>
+                                <li>Monthly payment: {{costPerMonth}}</li>
+                                <li>Miles per month: {{milesRemaining}}</li>
+                                <li>Location: {{location}}</li>
+                                <li>Months remaining: {{monthsRemaining}}</li>
+                            </ul>
+                            <hr/>
+                        </div>
+                    </l1>
+                    {{/each}}
+                </ul>
+            </div>
+        </section>       
+    </div>
+    </div>
+</body>
+</html>
