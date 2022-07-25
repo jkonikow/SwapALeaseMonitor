@@ -13,6 +13,7 @@ export default class ListingManager {
         this.s3Client = s3Client;
     }
 
+    // TODO: handle first execution case where there is no listings object
     public async getKnownListings(): Promise<Listing[]> {
         const json: string = await this.s3Client.getObject(LISTINGS_OBJECT, LISTINGS_S3_BUCKET_NAME);
         const listingPojos: PojoLising[] = JSON.parse(json);

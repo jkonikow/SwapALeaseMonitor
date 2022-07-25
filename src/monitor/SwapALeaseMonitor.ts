@@ -1,30 +1,36 @@
 import { SwapALeaseClient, GetListingsRequest, GetListingsResponse, Listing } from "@jkon1513/swap-a-lease-client";
-import S3ClientFacade from "../s3/S3ClientFacade";
 import ListingManager from "./ListingManager";
+import SesClientFacade from "../ses/SesClientFacade";
 
 export default class SwapALeaseMonitor {
     private readonly salClient: SwapALeaseClient; 
-    private readonly listingManager: ListingManager
+    private readonly listingManager: ListingManager;
+    private readonly sesClient: SesClientFacade;
     
 
-    public constructor(salClient: SwapALeaseClient, listingManager: ListingManager) {
+    public constructor(salClient: SwapALeaseClient, listingManager: ListingManager, sesClient: SesClientFacade) {
         this.salClient = salClient;
         this.listingManager = listingManager;
+        this.sesClient = sesClient;
     }
 
     public async monitor(props: SwapALeaseMonitorProps): Promise<void> {
         const request: GetListingsRequest = GetListingsRequest.builder()
-                                                .withMaxDistanceFromZip(props.radiusMiles ?? '100')
-                                                .withMinMilesPerMonth(props.minMilesPerMonth ?? '1000')
-                                                .withMaxMonthsRemaining(props.maxMonthsRemaining ?? '24')
-                                                .withMaxPricePerMonth(props.maxLeasePayment ?? '650')
+                                                .withMaxDistanceFromZip(props.radiusMiles ?? '150')
+                                                .withMinMilesPerMonth(props.minMilesPerMonth ?? '500')
+                                                .withMaxMonthsRemaining(props.maxMonthsRemaining ?? '30')
+                                                .withMaxPricePerMonth(props.maxLeasePayment ?? '1000')
                                                 .withZip(props.zip)
                                                 .build();
         const listingsResponse: GetListingsResponse = await this.salClient.getListings(request);
-        //const knownListings: Listing[] = await this.listingManager.getKnownListings();
-        const knownListings: Listing[] = [];
+        const knownListings: Listing[] = await this.listingManager.getKnownListings();
         const newListings: Listing[] = this.extractNewListings(knownListings, listingsResponse.getListings());
-        this.listingManager.updateKnownListings(newListings);
+        
+        console.info(`Found ${newListings.length} new listings`);
+        if(newListings.length > 0) {
+            this.listingManager.updateKnownListings(listingsResponse.getListings());
+            this.sesClient.sendEmailNotification(newListings, props);
+        }
     }
 
     /**
