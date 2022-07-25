@@ -57,6 +57,12 @@
             list-style: none;
         }
 
+        .listing-item > img {
+            height: 200px;
+            width: 300px;
+            display: inline-block;
+        }
+
     </style>
 </head>
 <body>
@@ -81,7 +87,7 @@
                     <l1>
                         <div class="listing-item">
                             <h3><a href="{{listingUrl}}">{{title}}</a></h3>
-                            <img src={{imgUrl}}/>
+                            <img src={{imgUrl}} alt="listing_image" title="listing_image"/>
                             <ul>
                                 <li>Monthly payment: {{costPerMonth}}</li>
                                 <li>Miles per month: {{milesRemaining}}</li>
