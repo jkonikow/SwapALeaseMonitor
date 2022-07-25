@@ -1,5 +1,5 @@
 {
-    "TemplateName": "SwapALeaseMonitorTesting",
+    "TemplateName": "SwapALeaseMonitorTemplate",
     "TemplateContent": {
         "Subject": "SwapALeaseMonitor: New Listings!",
         "Text": "New listings have been found!",
