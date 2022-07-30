@@ -31,7 +31,6 @@
   },
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.137.0",
-    "@aws-sdk/client-s3": "^3.113.0",
     "@aws-sdk/client-ses": "^3.118.0",
     "@jkon1513/swap-a-lease-client": "^1.0.3",
     "install": "^0.13.0",
