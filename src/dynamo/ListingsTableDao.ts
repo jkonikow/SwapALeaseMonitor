@@ -9,7 +9,7 @@ import {
 const LISTINGS_TABLE_NAME: string = "SwapALeaseListingsTable";
 
 // TODO: look into using a mapper
-export class ListingsTableDao {
+export default class ListingsTableDao {
     private readonly ddbClient: DynamoDBClient;
 
     constructor(ddbClient: DynamoDBClient) {
@@ -28,7 +28,8 @@ export class ListingsTableDao {
             const { Item } = await this.ddbClient.send(new GetItemCommand(request));
             if (Item === undefined) {
                 console.warn(`No previous listings found for ${make}`);
-                return [].toString();
+                // TODO: best practice for returning empty array json
+                return "[]";
             }
             const listingsJson: string = Item.listings.S!;
             console.info(`Succesfully fetched listings: ${listingsJson}`);

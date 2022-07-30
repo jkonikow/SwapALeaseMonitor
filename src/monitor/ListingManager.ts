@@ -1,5 +1,4 @@
-import S3ClientFacade from "../s3/S3ClientFacade";
-import { LISTINGS_OBJECT, LISTINGS_S3_BUCKET_NAME } from "../environment/environment_module";
+import ListingsTableDao from "../dynamo/ListingsTableDao";
 import { Listing, VehicleInfo, LeaseInfo } from "@jkon1513/swap-a-lease-client";
 
 /**
@@ -7,22 +6,21 @@ import { Listing, VehicleInfo, LeaseInfo } from "@jkon1513/swap-a-lease-client";
  * and updating the most recently seen listings if needed
  */
 export default class ListingManager {
-    private readonly s3Client: S3ClientFacade;
+    private readonly listingsTableDao: ListingsTableDao;
 
-    constructor(s3Client: S3ClientFacade) {
-        this.s3Client = s3Client;
+    constructor(listingsTableDao: ListingsTableDao) {
+        this.listingsTableDao = listingsTableDao;
     }
 
-    // TODO: handle first execution case where there is no listings object
-    public async getKnownListings(): Promise<Listing[]> {
-        const json: string = await this.s3Client.getObject(LISTINGS_OBJECT, LISTINGS_S3_BUCKET_NAME);
+    public async getKnownListings(make: string): Promise<Listing[]> {
+        const json: string = await this.listingsTableDao.getListings(make);
         const listingPojos: PojoLising[] = JSON.parse(json);
         return listingPojos.map(pojo => this.convertPojoToListing(pojo));
     }
 
-    public updateKnownListings(listings: Listing[]) {
+    public updateKnownListings(make: string, listings: Listing[]): void {
         const listingsJson: string = JSON.stringify(listings);
-        this.s3Client.putObject(LISTINGS_OBJECT, LISTINGS_S3_BUCKET_NAME, listingsJson);
+        this.listingsTableDao.putListings(make, listingsJson);
     }
 
     private convertPojoToListing(pojo: PojoLising): Listing {
