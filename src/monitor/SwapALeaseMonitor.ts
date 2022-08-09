@@ -17,7 +17,7 @@ export default class SwapALeaseMonitor {
     }
 
     public async monitor(props: SwapALeaseMonitorProps): Promise<void> {
-        const makesToMonitor: string[] = props.preferredMakes ?? [ANY_MAKE];
+        const makesToMonitor: string[] = props.preferredMakes.length === 0 ? [ANY_MAKE] : props.preferredMakes;
         let totalNewListings: Listing[] = [];
         for(const make of makesToMonitor) {
             const newListings = await this.monitorForMake(make, props);
@@ -88,9 +88,9 @@ export default class SwapALeaseMonitor {
 
 export type SwapALeaseMonitorProps = {
     zip: string,
+    preferredMakes: string[], 
     minMilesPerMonth?: string,
     maxMonthsRemaining?: string, 
     maxLeasePayment?: string, 
     radiusMiles?: string,
-    preferredMakes?: string[], 
 }

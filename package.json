@@ -1,6 +1,6 @@
 {
   "name": "@jkon1513/swap-a-lease-monitor",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Monitoring service for notifying of new listings on swap a lease",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
