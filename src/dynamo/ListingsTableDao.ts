@@ -16,18 +16,18 @@ export default class ListingsTableDao {
         this.ddbClient = ddbClient;
     }
 
-    public async getListings(make: string): Promise<string> {
-        console.info(`Fetching listings for make: ${make} from listings table`);
+    public async getListings(key: string): Promise<string> {
+        console.info(`Fetching listings for monitor: ${key} from listings table`);
 
         const request: GetItemCommandInput = {
             TableName: LISTINGS_TABLE_NAME,
-            Key: {make: {S: make}}
+            Key: {monitorInstanceName: {S: key}}
         }
        
         try {
             const { Item } = await this.ddbClient.send(new GetItemCommand(request));
             if (Item === undefined) {
-                console.warn(`No previous listings found for ${make}`);
+                console.warn(`No previous listings found for monitor: ${key}`);
                 // TODO: best practice for returning empty array json
                 return "[]";
             }
@@ -44,13 +44,13 @@ export default class ListingsTableDao {
         }
     }
 
-    public async putListings(make: string, listingsJson: string): Promise<void> {
-        console.info(`Saving listings for make: ${make} to table: ${listingsJson}`);
+    public async putListings(key: string, listingsJson: string): Promise<void> {
+        console.info(`Saving listings for monitor: ${key} to table: ${listingsJson}`);
 
         const request: PutItemCommandInput = {
             TableName: LISTINGS_TABLE_NAME,
             Item: {
-                make: {S: make},
+                monitorInstanceName: {S: key},
                 listings: {S: listingsJson}
             }
         };

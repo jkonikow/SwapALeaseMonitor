@@ -2,7 +2,7 @@ import ListingsTableDao from "../dynamo/ListingsTableDao";
 import { Listing, VehicleInfo, LeaseInfo } from "@jkon1513/swap-a-lease-client";
 
 /**
- * Manager is responsible for fetching known listings from s3 
+ * Manager is responsible for fetching known listings from DDB
  * and updating the most recently seen listings if needed
  */
 export default class ListingManager {
@@ -12,15 +12,15 @@ export default class ListingManager {
         this.listingsTableDao = listingsTableDao;
     }
 
-    public async getKnownListings(make: string): Promise<Listing[]> {
-        const json: string = await this.listingsTableDao.getListings(make);
+    public async getKnownListings(key: string): Promise<Listing[]> {
+        const json: string = await this.listingsTableDao.getListings(key);
         const listingPojos: PojoLising[] = JSON.parse(json);
         return listingPojos.map(pojo => this.convertPojoToListing(pojo));
     }
 
-    public updateKnownListings(make: string, listings: Listing[]): void {
+    public updateKnownListings(key: string, listings: Listing[]): void {
         const listingsJson: string = JSON.stringify(listings);
-        this.listingsTableDao.putListings(make, listingsJson);
+        this.listingsTableDao.putListings(key, listingsJson);
     }
 
     private convertPojoToListing(pojo: PojoLising): Listing {
