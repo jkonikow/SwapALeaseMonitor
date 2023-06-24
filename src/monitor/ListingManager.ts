@@ -1,5 +1,5 @@
 import ListingsTableDao from "../dynamo/ListingsTableDao";
-import { Listing, VehicleInfo, LeaseInfo } from "@jkon1513/swap-a-lease-client";
+import { Listing, VehicleInfo, LeaseInfo } from "@jkonikow/swap-a-lease-client";
 
 /**
  * Manager is responsible for fetching known listings from DDB

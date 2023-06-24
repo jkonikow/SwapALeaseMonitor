@@ -1,4 +1,4 @@
-import { SwapALeaseClient, GetListingsRequest, GetListingsResponse, Listing } from "@jkon1513/swap-a-lease-client";
+import { SwapALeaseClient, GetListingsRequest, GetListingsResponse, Listing } from "@jkonikow/swap-a-lease-client";
 import ListingManager from "./ListingManager";
 import SesClientFacade from "../ses/SesClientFacade";
 

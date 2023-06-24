@@ -9,7 +9,7 @@ import {
     SENDER_EMAIL, 
     SES_TEMPLATE_NAME, 
     SES_CONFIG } from "../environment/environment_module";
-import { Listing } from "@jkon1513/swap-a-lease-client";
+import { Listing } from "@jkonikow/swap-a-lease-client";
 import { SwapALeaseMonitorProps } from "../monitor/SwapALeaseMonitor";
 
 const UNSPECIFIED_CRITERIA: string = "not specified";

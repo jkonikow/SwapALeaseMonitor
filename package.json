@@ -1,6 +1,6 @@
 {
-  "name": "@jkon1513/swap-a-lease-monitor",
-  "version": "1.0.1",
+  "name": "@jkonikow/swap-a-lease-monitor",
+  "version": "1.0.0",
   "description": "Monitoring service for notifying of new listings on swap a lease",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -14,16 +14,19 @@
     "execute": "node -r dotenv/config dist/JobRunner.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jkon1513/SwapALeaseMonitor.git"
+    "url": "git+https://github.com/jkonikow/SwapALeaseMonitor.git"
   },
-  "author": "jkon1513",
+  "author": "Jason Konikow",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/jkon1513/SwapALeaseMonitor/issues"
+    "url": "https://github.com/jkonikow/SwapALeaseMonitor/issues"
   },
-  "homepage": "https://github.com/jkon1513/SwapALeaseMonitor#readme",
+  "homepage": "https://github.com/jkonikow/SwapALeaseMonitor#readme",
   "devDependencies": {
     "@types/node": "^18.0.0",
     "dotenv": "^16.0.1",
@@ -32,7 +35,7 @@
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.137.0",
     "@aws-sdk/client-ses": "^3.118.0",
-    "@jkon1513/swap-a-lease-client": "file:../SwapALeaseClient",
+    "@jkonikow/swap-a-lease-client": "^1.0.0",
     "install": "^0.13.0",
     "npm": "^8.12.2"
   }

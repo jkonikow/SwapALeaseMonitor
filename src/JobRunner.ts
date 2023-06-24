@@ -1,6 +1,6 @@
 import SwapALeaseMonitor, { SwapALeaseMonitorProps } from "./monitor/SwapALeaseMonitor";
 import ListingManager from "./monitor/ListingManager";
-import { SwapALeaseClient } from "@jkon1513/swap-a-lease-client";
+import { SwapALeaseClient } from "@jkonikow/swap-a-lease-client";
 import SesClientFacade  from "./ses/SesClientFacade";
 import { SESClient } from "@aws-sdk/client-ses";
 import { AWS_REGION } from "./environment/environment_module";
