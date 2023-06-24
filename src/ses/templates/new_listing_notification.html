@@ -2,6 +2,7 @@
     To update the html to be used for emails please see the README in this directory. 
 
     template variables:
+    * monitorName
     * listingCount
     * zip
     * milesFromZip
@@ -68,7 +69,7 @@
 <body>
     <div class="main">
     <div class="email-wrapper">
-        <H1>We found {{listingCount}} new listings!</H1>
+        <H1>{{monitorName}}: We found {{listingCount}} new listings!</H1>
         <section class="criteria">  
           <p class="bold">Your Current criteria for listings:</p>
           <ul>
@@ -86,8 +87,8 @@
                     {{#each listings}}
                     <l1>
                         <div class="listing-item">
-                            <h3><a href="{{listingUrl}}">{{title}}</a></h3>
-                            <img src={{imgUrl}} alt="listing_image" title="listing_image"/>
+                            <h3>{{title}}</h3>
+                            <a href="{{listingUrl}}"><img src={{imgUrl}} alt="listing_image" title="listing_image"/></a>
                             <ul>
                                 <li>Monthly payment: {{costPerMonth}}</li>
                                 <li>Miles per month: {{milesRemaining}}</li>

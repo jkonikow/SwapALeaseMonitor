@@ -61,6 +61,7 @@ export default class SesClientFacade {
         });
         
         return {
+            monitorName: criteria.monitorName,
             listingCount: listings.length.toString(),
             zip: criteria.zip,
             milesFromZip: criteria.radiusMiles ?? UNSPECIFIED_CRITERIA,
@@ -76,7 +77,8 @@ export default class SesClientFacade {
 
 // Note that the property names here are defined by the variable names in the html template and must match them
 type SwapALeaseMonitorNotificationData = {
-    listingCount: string, 
+    monitorName: string,
+    listingCount: string,
     zip: string, 
     milesFromZip: string, 
     maxMonthsRemaining: string,
